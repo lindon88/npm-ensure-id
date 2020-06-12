@@ -103,10 +103,10 @@ module.exports = function checkHtml(_options, _dir) {
                     var copyCurrentLine = currentLine;
                     copyCurrentLine = copyCurrentLine.replace(/\"/g, '\\"');
                     copyCurrentLine = copyCurrentLine.replace(/\./g, '\\.');
-                    copyCurrentLine = copyCurrentLine.replace(/\$/g, '\\$');
                     copyCurrentLine = copyCurrentLine.replace(/\//g, '\\/');
                     copyCurrentLine = copyCurrentLine.replace(/\(/g, '\\(');
                     copyCurrentLine = copyCurrentLine.replace(/\)/g, '\\)');
+                    copyCurrentLine = copyCurrentLine.replace(/\$/g, '\\$');
                     copyCurrentLine = copyCurrentLine.replace(/\|/g, '\\|');
                     var regexString = new RegExp(copyCurrentLine);
 
