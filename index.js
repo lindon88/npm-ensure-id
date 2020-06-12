@@ -4,6 +4,7 @@ const replace = require('replace-in-file');
 const camelCase = require('lodash.camelcase');
 const fs = require('fs');
 var path = require('path');
+var uniqid = require('uniqid');
 
 module.exports = function checkHtml(_options, _dir) {
 
@@ -12,7 +13,8 @@ module.exports = function checkHtml(_options, _dir) {
         check: 'ng-attr-id',
         elements: ['button', 'a', 'input', 'select'],
         attrs: ['ng-click', 'ng-submit'],
-        autofix: false
+        autofix: false,
+        platform: 'web'
     };
 
     if (_options) options = _options;
@@ -94,7 +96,8 @@ module.exports = function checkHtml(_options, _dir) {
 
                     console.log(currentFile);
 
-                    var nameFile = camelCase(regExpFileName.exec(currentFile.replace(/\.html/g, '')));
+                    // var nameFile = camelCase(regExpFileName.exec(currentFile.replace(/\.html/g, '')));
+                    var nameFile = options.platform;
 
                     /* replace the special characters of the html tag to be able to use it with regular expressions */
                     var copyCurrentLine = currentLine;
@@ -109,35 +112,35 @@ module.exports = function checkHtml(_options, _dir) {
 
                     switch (name) {
                         case 'button':
-                            var newId = nameFile + "_btn_" + countFile + "_" + uniqueId;
+                            var newId = uniqid(nameFile + "-btn-");
                             break;
 
                         case 'img':
-                            var newId = nameFile + "_img_" + countFile + "_" + uniqueId;
+                            var newId = uniqid(nameFile + "-img-");
                             break;
 
                         case 'p':
-                            var newId = nameFile + "_text_" + countFile + "_" + uniqueId;
+                            var newId = uniqid(nameFile + "-text-");
                             break;
 
                         case 'span':
-                            var newId = nameFile + "_span_" + countFile + "_" + uniqueId;
+                            var newId = uniqid(nameFile + "-span-");
                             break;
 
                         case 'a':
-                            var newId = nameFile + "_link_" + countFile + "_" + uniqueId;
+                            var newId = uniqid(nameFile + "-link-");
                             break;
 
                         case 'input':
-                            var newId = "{{'" + nameFile + "_link_' + " + nameFile + ".index + '_' \| uniqueId }}";
+                            var newId = uniqid(nameFile + "-input-");
                             break;
 
                         case 'iframe':
-                            var newId = nameFile + "_iframe_" + countFile + "_" + uniqueId;
+                            var newId = uniqid(nameFile + "-iframe-");
                             break;
 
                         default:
-                            var newId = nameFile + "_other_" + countFile + "_" + uniqueId;
+                            var newId = uniqid(nameFile + "-" + name + "-");
                             break;
                     }
                     uniqueId++;
@@ -170,7 +173,8 @@ module.exports = function checkHtml(_options, _dir) {
 
                     /* convert name file to camelCase */
                     var regExpFileName = new RegExp(/[^/]*$/g);
-                    var nameFile = camelCase(regExpFileName.exec(currentFile.replace(/\.html/g, '')));
+                    // var nameFile = camelCase(regExpFileName.exec(currentFile.replace(/\.html/g, '')));
+                    var nameFile = options.platform;
 
                     /* replace the special characters of the html tag to be able to use it with regular expressions */
                     var copyCurrentLine = currentLine;
@@ -185,13 +189,13 @@ module.exports = function checkHtml(_options, _dir) {
 
                     switch (attribute) {
                         case 'ng-click':
-                            var newId = nameFile + "_btn_" + countFile + "_" + uniqueId;
+                            var newId = uniqid(nameFile + "-btn-");
                             break;
                         case 'ng-submit':
-                            var newId = nameFile + "_btn_" + countFile + "_" + uniqueId;
+                            var newId = uniqid(nameFile + "-btn-");
                             break;
                         default:
-                            var newId = nameFile + "_other_" + countFile + "_" + uniqueId;
+                            var newId = uniqid(nameFile + "-other-");
                             break;
                     }
                     uniqueId++;

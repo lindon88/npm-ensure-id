@@ -9,7 +9,8 @@
   "dependencies": {
     "htmlparser2": "^3.8.3",
     "lodash.camelcase": "^4.3.0",
-    "replace-in-file": "^2.4.0"
+    "replace-in-file": "^2.4.0",
+    "uniqid": "^5.2.0"
   },
   "author": "Lindon Camaj",
   "license": "ISC"
