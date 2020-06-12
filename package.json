@@ -1,0 +1,16 @@
+{
+  "name": "npm-ensure-id",
+  "version": "1.0.0",
+  "description": "Ensures that all specified html elements has id attribute.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "htmlparser2": "^3.8.3",
+    "lodash.camelcase": "^4.3.0",
+    "replace-in-file": "^2.4.0"
+  },
+  "author": "Lindon Camaj",
+  "license": "ISC"
+}
