@@ -91,12 +91,16 @@ module.exports = function checkHtml(_options, _dir) {
 
                     /* convert name file to camelCase */
                     var regExpFileName = new RegExp(/[^/]*$/g);
+
+                    console.log(currentFile);
+
                     var nameFile = camelCase(regExpFileName.exec(currentFile.replace(/\.html/g, '')));
 
                     /* replace the special characters of the html tag to be able to use it with regular expressions */
                     var copyCurrentLine = currentLine;
                     copyCurrentLine = copyCurrentLine.replace(/\"/g, '\\"');
                     copyCurrentLine = copyCurrentLine.replace(/\./g, '\\.');
+                    copyCurrentLine = copyCurrentLine.replace(/\$/g, '\\$');
                     copyCurrentLine = copyCurrentLine.replace(/\//g, '\\/');
                     copyCurrentLine = copyCurrentLine.replace(/\(/g, '\\(');
                     copyCurrentLine = copyCurrentLine.replace(/\)/g, '\\)');
@@ -172,6 +176,7 @@ module.exports = function checkHtml(_options, _dir) {
                     var copyCurrentLine = currentLine;
                     copyCurrentLine = copyCurrentLine.replace(/\"/g, '\\"');
                     copyCurrentLine = copyCurrentLine.replace(/\./g, '\\.');
+                    copyCurrentLine = copyCurrentLine.replace(/\$/g, '\\$');
                     copyCurrentLine = copyCurrentLine.replace(/\//g, '\\/');
                     copyCurrentLine = copyCurrentLine.replace(/\(/g, '\\(');
                     copyCurrentLine = copyCurrentLine.replace(/\)/g, '\\)');
