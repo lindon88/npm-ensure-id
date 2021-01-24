@@ -5,10 +5,10 @@ const camelCase = require('lodash.camelcase');
 const fs = require('fs');
 var path = require('path');
 var uniqid = require('uniqid');
+var minify = require('html-minifier').minify;
 
 module.exports = function checkHtml(_options, _dir) {
 
-    var files = recFindByExt(_dir, 'html');
     var options = {
         check: 'ng-attr-id',
         elements: ['button', 'a', 'input', 'select'],
@@ -23,15 +23,20 @@ module.exports = function checkHtml(_options, _dir) {
     var parser = new htmlparser.Parser({
         onopentag: parseOpenTag
     }, {decodeEntities: true});
-    console.log('Found ' + files.length + ' file groups to check');
 
-    files.forEach(function (f) {
-        console.log(f);
-        if(filterNonExistingFiles(f)){
-            parseFile(f);
-        }
-        // f.filter(filterNonExistingFiles).map(parseFile);
-    });
+    if(fs.lstatSync(_dir).isDirectory()){
+        var files = recFindByExt(_dir, 'html');
+        console.log('Found ' + files.length + ' file groups to check');
+        files.forEach(function (f) {
+            console.log(f);
+            if(filterNonExistingFiles(f)){
+                parseFile(f);
+            }
+            // f.filter(filterNonExistingFiles).map(parseFile);
+        });
+    }else if(fs.existsSync(_dir) && fs.lstatSync(_dir).isFile()) {
+        parseFile(_dir);
+    }
 
     parser.end();
     if (hasError) {
